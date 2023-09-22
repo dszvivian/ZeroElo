@@ -12,32 +12,40 @@ def getFirstMove(board):
         break
     return a 
 
-# Returns a first move on each type
+def getCheckmates(board):
+    for l in board.legal_moves:
+        localBoard = chess.Board(board.board_fen())
+        localBoard.push(l)
+        if(localBoard.is_checkmate()):
+            return l
+    return None
+
 def getRandomMove(board):
 
-    rNo = random.randrange(0,board.legal_moves.count())
-    print(rNo)
-    i = 0
-    for l in board.legal_moves:
-        global a
-        if(i==rNo):
-            a = str(l)
-            break
-        i = i+1
-    return a 
+    if(not getCheckmates(board)==None):
+        return getCheckmates(board)
+    else:
+        rNo = random.randrange(0,board.legal_moves.count())
+        print(rNo)
+        i = 0
+        for l in board.legal_moves:
+            global a
+            if(i==rNo):
+                a = str(l)
+                break
+            i = i+1
+        return a  
 
 
+moves = 0
 while not board.is_game_over():
 
     if(not board.legal_moves.count==0):
-        print(board.legal_moves)
-        bot1_move = chess.Move.from_uci(getRandomMove(board))
-        board.push(bot1_move)
-        print(board)
-        print(" ")
-
-    else:
-        print("CheckMate")
-        print(board.legal_moves)
+        user_move = chess.Move.from_uci(getRandomMove(board))
+        board.push(user_move)
+        moves += 1
+        
+print(moves)
+print(board)
 
     

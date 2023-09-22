@@ -15,14 +15,6 @@ def getCheckmates(board):
             return l
     return None
 
-def getCheckmatesPrint(board):
-    for l in board.legal_moves:
-        localBoard = chess.Board(board.board_fen())
-        localBoard.push(l)
-        if(localBoard.is_checkmate()):
-            print(str(l))
-
-
 def getRandomMove(board):
 
     if(not getCheckmates(board)==None):
@@ -40,5 +32,4 @@ def getRandomMove(board):
         return a 
 
 print(board.legal_moves)
-getCheckmatesPrint(board)
 print(getRandomMove(board))
