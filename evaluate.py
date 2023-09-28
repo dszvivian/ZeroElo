@@ -30,17 +30,18 @@ def retBestCaptureMove(board:chess.Board,captures:list[chess.Move])->chess.Move:
         if(captureScore(board,l)>=score):
             score = captureScore(board,l)
             best_move = l
-    return best_move
+            return best_move
+        else:
+            return None
 
 #Calculates & returns the diff b/w currentBoardScore and scoreAfterTheMove
 #Returns only if it is >= 0
 def captureScore(board:chess.Board,move:chess.Move)->int:
-    local_board = board
+    local_board = chess.Board(board.board_fen())
     firstPosScore = calculatePosition(local_board,False)
-    print(firstPosScore)
-    local_board.push(move)
+    inner_move = chess.Move.from_uci(str(move))
+    local_board.push(inner_move)
     nextPosScore = calculatePosition(local_board,False)
-    print(nextPosScore)
     score = nextPosScore - firstPosScore
 
     if(score>=0):
@@ -48,13 +49,9 @@ def captureScore(board:chess.Board,move:chess.Move)->int:
     else:
         return -1
     
+board = board = chess.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
 
-# board = chess.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR")
-# print(renderBoard(board))
-# print(board.legal_moves)
 
-# move = chess.Move.from_uci('e2e4')
-# print(captureScore(board,move))
-# board.push(move)
-# print(renderBoard(board))
+
+
 

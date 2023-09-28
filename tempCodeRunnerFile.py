@@ -1,1 +1,2 @@
-print(captureScore(board,move))
+if(getBestCapture(board)!=None):
+    #     return getBestCapture(board)

@@ -44,18 +44,22 @@ def getBestCapture(board:chess.Board):
     for l in board.legal_moves:
         if(board.is_capture(l)):
             capturing_moves.append(l)
-
-    #Get the Best capture
-    return retBestCaptureMove(board,capturing_moves)
+            
+    print(len(capturing_moves))
+    if(len(capturing_moves)<=0):
+        return None
+    else:
+        #Get the Best capture
+        return retBestCaptureMove(board,capturing_moves)
           
 
 def getBestMove(board:chess.Board):
-    if(not getCheckmates(board)==None):#Check for Checkmates
+    if(getCheckmates(board)!=None):#Check for Checkmates
         return getCheckmates(board)
-    
-    if(not getBestCapture(board)==None):
+    if(getBestCapture(board)!=None):
         return getBestCapture(board)
-
     else:
-        getRandomMove(board)
+        return getRandomMove(board)
 
+board = chess.Board("r4rk1/pb3pp1/1p2pB1p/2bq4/6N1/3B4/PPP2PPP/R2Q1RK1 b - - 0 2")
+print(getBestMove(board))

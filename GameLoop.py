@@ -11,7 +11,8 @@ def getMovefromUser():
 
 
 
-def startHumanVsBot(board):
+def startHumanVsBot(board:chess.Board):
+    renderBoard(board)
     while not board.is_game_over():
         user_move = getMovefromUser()
         if(user_move in board.legal_moves):
@@ -19,11 +20,9 @@ def startHumanVsBot(board):
 
             if(not board.is_game_over()):
                 board.push(getBestMove(board))
-                print(board)
-                # renderBoard(board)
+                renderBoard(board)
             else:
-                print(board)
-                # renderBoard(board)
+                renderBoard(board)
         else:
             print("Illegal Move")
 
