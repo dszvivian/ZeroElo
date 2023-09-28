@@ -14,3 +14,15 @@
 
 - Check the Most valuable Capture out of all the Captures & Return that move 
 - Evaluate Position based on the Pieces Present
+
+
+#Algorithms according to function Name:
+
+    - Calculating position:
+        - can be found in: evaluate.py-->calculatePosition(board:chess.Board,color:bool)
+        - First i set the value for each piece in the Board
+        - if: color==>True-->white,false-->black
+        - Algorithm:
+            -it just iterates through all the 64 sqaures 
+            -if it is a black piece then it adds to a score varibale
+            -int the end it returns score

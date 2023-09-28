@@ -1,0 +1,1 @@
+print(captureScore(board,move))

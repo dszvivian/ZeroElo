@@ -1,6 +1,6 @@
 import chess
 import random
-from evaluate import isGoodCapture
+from evaluate import retBestCaptureMove
 
 
 
@@ -32,26 +32,30 @@ def getRandomMove(board):
 
         global a
         if(i==rNo):
-            a = str(l)
+            a = l
             break
         i = i+1
     return a
     
 
-def isBestCapture(board:chess.Board):
+def getBestCapture(board:chess.Board):
+    #Calculate all the possible capturing Moves
+    capturing_moves = []
     for l in board.legal_moves:
-        if(board.is_capture(l) and isGoodCapture(board,l)):
-            return isGoodCapture(board,l)
-            
+        if(board.is_capture(l)):
+            capturing_moves.append(l)
 
-        
+    #Get the Best capture
+    return retBestCaptureMove(board,capturing_moves)
+          
 
-def bestMove(board:chess.Board):
+def getBestMove(board:chess.Board):
     if(not getCheckmates(board)==None):#Check for Checkmates
         return getCheckmates(board)
     
-    if(not isBestCapture(board)==None):
-        return isBestCapture(board)
+    if(not getBestCapture(board)==None):
+        return getBestCapture(board)
 
     else:
         getRandomMove(board)
+
