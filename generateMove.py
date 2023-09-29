@@ -43,7 +43,7 @@ def getBestCapture(board:chess.Board):
     capturing_moves = []
     for l in board.legal_moves:
         if(board.is_capture(l)):
-            print(l)
+            # print(l)
             capturing_moves.append(l)
 
     if(len(capturing_moves)<=0):
