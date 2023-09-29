@@ -16,8 +16,9 @@
 - Evaluate Position based on the Pieces Present
 
 
-#Algorithms according to function Name:
+## Algorithms according to function Name:
 
+    - Whole point is to calculate how bad is the oppenents position
     - Calculating position:
         - can be found in: evaluate.py-->calculatePosition(board:chess.Board,color:bool)
         - First i set the value for each piece in the Board
