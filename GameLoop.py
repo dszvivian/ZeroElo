@@ -1,11 +1,7 @@
 import chess
 import random
-from generateMove import getRandomMove
+from generateMove import getRandomMove,getBestMove
 from renderBoard import renderBoard
-
-board = chess.Board(chess.Board.starting_fen) #Load the starting position
-print(board)
-
 
 
 def getMovefromUser():
@@ -15,15 +11,15 @@ def getMovefromUser():
 
 
 
-def startHumanVsBot(board):
+def startHumanVsBot(board:chess.Board):
+    renderBoard(board)
     while not board.is_game_over():
-        user_move = getMovefromUser
+        user_move = getMovefromUser()
         if(user_move in board.legal_moves):
             board.push(user_move)
 
             if(not board.is_game_over()):
-                engine_move = chess.Move.from_uci(getRandomMove(board))
-                board.push(engine_move)
+                board.push(getBestMove(board))
                 renderBoard(board)
             else:
                 renderBoard(board)
