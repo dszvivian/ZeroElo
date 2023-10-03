@@ -7,13 +7,15 @@
 - Check if there is a checkmate or Return random Legal Move
     ![Alt text](/images/i2.png)
 
+- Check if there is checkmate,Look for the Best Capture if exists or Return Random Move
+    - Observations: Less stalemates,more pieces on the board,Quick Games on Average
+    ![Alt text](/images/i3.png)
 
 
 
 ## Todo 
 
-- Check the Most valuable Capture out of all the Captures & Return that move 
-- Evaluate Position based on the Pieces Present
+- redo the evaluation function: which suits both black and white
 
 
 ## Algorithms according to function Name:
@@ -27,3 +29,6 @@
             -it just iterates through all the 64 sqaures 
             -if it is a black piece then it adds to a score varibale
             -int the end it returns score
+
+
+

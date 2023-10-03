@@ -3,7 +3,6 @@ import random
 from evaluate import retBestCaptureMove
 
 
-
 # Returns a first move on each type
 def getFirstMove(board):
     for l in board.legal_moves:
@@ -21,7 +20,6 @@ def getCheckmates(board:chess.Board):
         if(localBoard.is_checkmate()):
             return l
     return None
-
 
 
 # Checks for Checkmates if any or else returns a random Move 
@@ -61,5 +59,5 @@ def getBestMove(board:chess.Board):
     else:
         return getRandomMove(board)
 
-board = chess.Board("rrb3k1/2q2Q1p/5p2/p2p1p2/P1pP1b2/2P4P/3N2PN/2R1R1K1 b - - 1 2")
-print(getBestCapture(board))
+# board = chess.Board("rrb3k1/2q2Q1p/5p2/p2p1p2/P1pP1b2/2P4P/3N2PN/2R1R1K1 b - - 1 2")
+# print(getBestCapture(board))
