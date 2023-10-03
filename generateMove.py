@@ -59,5 +59,5 @@ def getBestMove(board:chess.Board):
     else:
         return getRandomMove(board)
 
-# board = chess.Board("rrb3k1/2q2Q1p/5p2/p2p1p2/P1pP1b2/2P4P/3N2PN/2R1R1K1 b - - 1 2")
+# board = chess.Board("r1b1r1k1/p3qppp/2p5/3p4/nB6/2PB1Q2/P1PK1PPP/R6R w - - 9 16")
 # print(getBestCapture(board))

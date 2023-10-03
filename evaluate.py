@@ -10,48 +10,51 @@ piece_value = {
     chess.KING: 2000
 }
 
-
-#for now False since the bot is black by default 
-def calculatePosition(board:chess.Board,color:bool)->int:
+def calculatePosition(board:chess.Board):
     score = 0
     for sqaure in chess.SQUARES:
         piece = board.piece_at(sqaure)
         
-        if(piece!=None and piece.color==color):
+        if(piece!=None):
             currentPiece = piece.piece_type
-            score += piece_value.get(currentPiece)
-
+            if(piece.color==False):
+                score -= piece_value.get(currentPiece)
+            if(piece.color==True):
+                score += piece_value.get(currentPiece)
     return score
 
 
 #Whole point is to calculate how bad is the opponents  position after a capture
 def captureScore(board:chess.Board,move:chess.Move)->int:
     local_board = chess.Board(board.board_fen())
-    firstPosScore = calculatePosition(local_board,True)
+    firstPosScore = calculatePosition(local_board)
     local_board.push(move)
-    nextPosScore = calculatePosition(local_board,True)
+    nextPosScore = calculatePosition(local_board)
     score = nextPosScore - firstPosScore
-    # print(firstPosScore,nextPosScore)
     return score
 
 def retBestCaptureMove(board:chess.Board,captures:list[chess.Move])->chess.Move:
     score = 0
     best_move = None
+    color = board.piece_at(captures[0].from_square).color #Return the opponents color
     for l in captures:
-        if(captureScore(board,l)<=score):
-            score = captureScore(board,l)
-            best_move = l
+        capScore = captureScore(board,l)
+        if(color==True):
+            if(capScore>=score):
+                score=capScore
+                best_move = l
         else:
-            return None
-    
+            if(capScore<=score):
+                score = capScore
+                best_move = l
     return best_move
 
 
-# board = chess.Board("rrb3k1/2q2Q1p/5p2/p2p1p2/P1pP1b2/2P4P/3N2PN/2R1R1K1 b - - 1 2")
-# for l in board.legal_moves:
-#     print(l)
-# move = chess.Move.from_uci("c7f7")
-# print(captureScore(board,move))
+# board = chess.Board("r1b1r1k1/p3qppp/2p5/3p4/nB6/2PB1Q2/P1PK1PPP/R6R w - - 9 16")
+# m1 = chess.Move.from_uci("b4e7")
+# print(captureScore(board,m1))
+
+
 
 
 
