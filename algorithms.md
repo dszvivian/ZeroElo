@@ -15,8 +15,10 @@
 
 ## Todo 
 
-- redo the evaluation function: which suits both black and white
-
+- Try Different Learning Algorithms
+    - minimax search
+    - alpha-beta pruning
+    - ordered search 
 
 ## Algorithms according to function Name:
 

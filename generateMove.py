@@ -1,15 +1,8 @@
 import chess
 import random
 from evaluate import retBestCaptureMove
-
-
-# Returns a first move on each type
-def getFirstMove(board):
-    for l in board.legal_moves:
-        global a
-        a = str(l)
-        break
-    return a 
+from search import minimax
+from stockfish import Stockfish
 
 
 # Returns CheckMates if Any
@@ -21,6 +14,12 @@ def getCheckmates(board:chess.Board):
             return l
     return None
 
+def getFirstMove(board):
+    for l in board.legal_moves:
+        global a
+        a = str(l)
+        break
+    return a 
 
 # Checks for Checkmates if any or else returns a random Move 
 def getRandomMove(board):
@@ -34,7 +33,6 @@ def getRandomMove(board):
             break
         i = i+1
     return a
-    
 
 def getBestCapture(board:chess.Board):
     #Calculate all the possible capturing Moves
@@ -49,15 +47,29 @@ def getBestCapture(board:chess.Board):
     else:
         #Get the Best capture
         return retBestCaptureMove(board,capturing_moves)
+    
+def getBestCaptureRec(board:chess.Board):
+    return minimax(board,3)
           
 
 def getBestMove(board:chess.Board):
     if(getCheckmates(board)!=None):#Check for Checkmates
         return getCheckmates(board)
-    if(getBestCapture(board)!=None):
-        return getBestCapture(board)
+    if(getBestCaptureRec(board)!=None):
+        return getBestCaptureRec(board)
     else:
         return getRandomMove(board)
+    
+def getStockFishmove(board:chess.Board):
+    stockfish = Stockfish("stockfish.exe")
+    stockfish.set_fen_position(board.board_fen)
+    move = stockfish.get_best_move()
+    print(move)
+    return move
 
-# board = chess.Board("r1b1r1k1/p3qppp/2p5/3p4/nB6/2PB1Q2/P1PK1PPP/R6R w - - 9 16")
-# print(getBestCapture(board))
+    
+
+
+board = chess.Board(chess.Board.starting_fen)
+
+print(getStockFishmove(board))

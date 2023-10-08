@@ -33,6 +33,13 @@ def captureScore(board:chess.Board,move:chess.Move)->int:
     score = nextPosScore - firstPosScore
     return score
 
+# board = chess.Board("r1b1r1k1/p3qppp/2p5/3p4/nB6/2PB1Q2/P1PK1PPP/R6R w - - 9 16")
+# m1 = chess.Move.from_uci("b4e7")
+# print(captureScore(board,m1))
+
+
+
+# Old Methods 
 def retBestCaptureMove(board:chess.Board,captures:list[chess.Move])->chess.Move:
     score = 0
     best_move = None
@@ -48,13 +55,6 @@ def retBestCaptureMove(board:chess.Board,captures:list[chess.Move])->chess.Move:
                 score = capScore
                 best_move = l
     return best_move
-
-
-# board = chess.Board("r1b1r1k1/p3qppp/2p5/3p4/nB6/2PB1Q2/P1PK1PPP/R6R w - - 9 16")
-# m1 = chess.Move.from_uci("b4e7")
-# print(captureScore(board,m1))
-
-
 
 
 
