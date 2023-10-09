@@ -1,4 +1,0 @@
-### MiniMax Search 
-    > 
-    >
-    > 

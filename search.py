@@ -1,16 +1,17 @@
 import chess
 from evaluate import calculatePosition
+from evaluateExp import move_value,evaluateBoard
 
+
+MATE_SCORE     = 1000000000
 
 #for now it returns only capturing moves 
 def getOrderedMoves(board:chess.Board)->list[chess.Move]:
-    capturing_moves = []
-    for l in board.legal_moves:
-        if(board.is_capture(l)):
-            # print(l)
-            capturing_moves.append(l)
-
-    return capturing_moves
+    
+    def orderer(move:chess.Move):
+        return move_value(board,move)
+    
+    return sorted(board.legal_moves,key=orderer,reverse=(board.turn==chess.BLACK))
 
 
 
@@ -31,7 +32,7 @@ def minimax(board:chess.Board,depth:int)->chess.Move:
     # print(moves)
     best_move = None
 
-    for l in board.legal_moves:
+    for l in moves:
         board.push(l)
         move_score = minimaxSearch(board,depth-1,color=not maximize)#Returns best possible move at that level
         # print(move_score)
@@ -49,13 +50,10 @@ def minimax(board:chess.Board,depth:int)->chess.Move:
 
 def minimaxSearch(board:chess.Board,depth:int,color:bool)->float:
     if(depth==0):
-        return calculatePosition(board)
+        return evaluateBoard(board)
     
-    # if(board.is_checkmate):
-    #     if(color==True):
-    #         return -1000000
-    #     else:
-    #         return 1000000
+    if(board.is_checkmate):
+        return MATE_SCORE if color==False else -MATE_SCORE
     
     #probably due to a draw or stalemate        
     if(board.is_game_over()):
@@ -83,6 +81,5 @@ def minimaxSearch(board:chess.Board,depth:int,color:bool)->float:
     else:
         return minEval
     
-
-board = chess.Board("rn3rk1/p2b1ppp/1bp5/7n/BP2PQ2/5PP1/PB1KN2q/R7 b - - 0 19")
-print(minimax(board,3))
+board = chess.Board(chess.Board.starting_fen)
+print(getOrderedMoves(board))

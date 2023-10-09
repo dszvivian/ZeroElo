@@ -1,6 +1,6 @@
 import chess
 import random
-from generateMove import getRandomMove,getBestMove,getStockFishmove
+from generateMove import getRandomMove,getBestMove,getStockFishmove,getBestCaptureRec
 from renderBoard import renderBoard
 
 
@@ -8,7 +8,6 @@ def getMovefromUser():
     userMove = input("Enter the move: (ie:e2e4)")
     user_move = chess.Move.from_uci(str(userMove))
     return user_move
-
 
 
 def startHumanVsBot(board:chess.Board):
@@ -19,7 +18,7 @@ def startHumanVsBot(board:chess.Board):
             board.push(user_move)
 
             if(not board.is_game_over()):
-                board.push(getBestMove(board))
+                board.push(getBestCaptureRec(board))
                 renderBoard(board)
             else:
                 renderBoard(board)
@@ -37,7 +36,7 @@ def startBotVsBot(board):
             moves += 1
             renderBoard(board)
             if(not board.is_game_over()):
-                board.push(getBestMove(board))
+                board.push(getBestCaptureRec(board))
                 moves += 1
                 renderBoard(board)
             else:
@@ -46,7 +45,6 @@ def startBotVsBot(board):
             print("Illegal Move")
 
     print(moves)
-
 
 
 def startHumanVsStockfishBot(board:chess.Board):

@@ -49,17 +49,18 @@ def getBestCapture(board:chess.Board):
         return retBestCaptureMove(board,capturing_moves)
     
 def getBestCaptureRec(board:chess.Board):
-    return minimax(board,3)
+    return minimax(board,1)
           
 
 def getBestMove(board:chess.Board):
     if(getCheckmates(board)!=None):#Check for Checkmates
         return getCheckmates(board)
-    if(getBestCaptureRec(board)!=None):
-        return getBestCaptureRec(board)
+    if(getBestCapture(board)!=None):
+        return getBestCapture(board)
     else:
         return getRandomMove(board)
-    
+
+#Not Working___ Fix it   
 def getStockFishmove(board:chess.Board):
     stockfish = Stockfish("stockfish.exe")
     stockfish.set_fen_position(board.board_fen)
@@ -67,9 +68,6 @@ def getStockFishmove(board:chess.Board):
     print(move)
     return move
 
-    
 
+# board = chess.Board(chess.Board.starting_fen)
 
-board = chess.Board(chess.Board.starting_fen)
-
-print(getStockFishmove(board))
