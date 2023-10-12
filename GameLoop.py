@@ -4,16 +4,22 @@ from generateMove import getRandomMove,getBestMove,getStockFishmove,getBestCaptu
 from renderBoard import renderBoard
 
 
-def getMovefromUser():
+def getMovefromUser(board:chess.Board):
     userMove = input("Enter the move: (ie:e2e4)")
-    user_move = chess.Move.from_uci(str(userMove))
-    return user_move
-
+ 
+    try:
+        user_move = chess.Move.from_uci(str(userMove))
+        if user_move in board.legal_moves:
+            return user_move
+    except:
+        getMovefromUser(board)
+        
+    
 
 def startHumanVsBot(board:chess.Board):
     renderBoard(board)
     while not board.is_game_over():
-        user_move = getMovefromUser()
+        user_move = getMovefromUser(board)
         if(user_move in board.legal_moves):
             board.push(user_move)
 
